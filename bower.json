@@ -1,0 +1,15 @@
+{
+  "name": "dd-mobile-ionic",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "~v1.0.0-rc.0"
+  },
+  "dependencies": {
+    "angular-local-storage": "~0.1.5",
+    "angular-filter": "~0.4.9",
+    "ngCordova": "~0.1.12-alpha"
+  },
+  "resolutions": {
+    "angular": "~1.3.x"
+  }
+}
