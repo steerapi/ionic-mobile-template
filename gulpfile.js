@@ -34,7 +34,7 @@ gulp.task('build', ['coffee','sass','jade','img']);
 gulp.task('injectstyle', function() {
   return gulp.src('scss/*.scss')
     .pipe(plumber())
-    .pipe($.inject(gulp.src(['scripts/modules/**/*.scss'], {read: false}), {
+    .pipe($.inject(gulp.src(['scripts/modules/**/*.scss','!scripts/modules/**/_scss/*.scss'], {read: false}), {
       starttag: '// inject:styles',
       endtag: '// endinject',
       addRootSlash: false,
@@ -82,9 +82,8 @@ gulp.task('jade', function () {
 });
 
 gulp.task('sass', ['injectstyle'], function(done) {
-  gulp.src('./scss/*.scss')
+  $.rubySass('scss',{compass: true, sourcemap: true, style: 'compressed', loadPath : __dirname})
     .pipe(plumber())
-    .pipe(sass({compass: true, sourcemap: true, style: 'compressed'}))
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -95,7 +94,7 @@ gulp.task('sass', ['injectstyle'], function(done) {
 });
 
 gulp.task('img', function () {
-  return gulp.src(['./scripts/modules/**/img/**/*.{ico,png,jpg,svg}'])
+  return gulp.src(['./scripts/modules/**/*.{ico,png,jpg,svg}'])
       .pipe(plumber())
       .pipe(gulp.dest('./www/img/'))
 });
